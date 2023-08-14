@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Skills picture</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      background-color: #ccc;
+    }
+
+    #picture,
+    #control {
+      margin: 20px auto;
+      width: 640px;
+    }
+
+    .row {
+      display: flex;
+      justify-content: center;
+    }
+
+    .cell {
+      display: flex;
+      height: 320px;
+      width: 320px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .logo {
+      max-width: 160px;
+      max-height: 160px;
+    }
+
+    .circle {
+      clip-path: circle();
+    }
+
+    .circle .top {
+      padding-top: 80px;
+    }
+
+    .circle .bottom {
+      padding-bottom: 80px;
+    }
+
+    .circle .left {
+      padding-left: 80px;
+    }
+
+    .circle .right {
+      padding-right: 80px;
+    }
+
+    /* https://nodejs.dev/en/about/branding/ */
+    .nodejs {
+      background-color: #5fa04e;
+    }
+
+    /* https://www.python.org/ .main-header */
+    .python {
+      background-color: #2b5b84;
+    }
+
+    /* https://www.docker.com/ .et_pb_section_0_tb_footer.et_pb_section */
+    .docker {
+      background-color: #002a64;
+    }
+
+    /* https://www.linuxfoundation.org/brand-guidelines */
+    .linux {
+      background-color: #0094ff;
+    }
+
+    #control {
+      font-family: Arial, Helvetica, sans-serif;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="picture">
+    <div class="row">
+      <div class="cell nodejs"><img class="top left logo" alt="Node.js" src="/nodejs.png"></div>
+      <div class="cell python"><img class="top right logo" alt="Python" src="/python.png"></div>
+    </div>
+    <div class="row">
+      <div class="cell docker"><img class="bottom left logo" alt="Docker" src="/docker.png"></div>
+      <div class="cell linux"><img class="bottom right logo" alt="Linux" src="/linux.png"></div>
+    </div>
+  </div>
+
+  <div id="control">
+    <p><label><input type="checkbox" id="circular">Circular image</label></p>
+    <p><input type="button" id="save" value="Save to file"></p>
+  </div>
+
+  <script src="https://unpkg.com/modern-screenshot"></script>
+  <script>
+    document.getElementById("circular").addEventListener("change", function () {
+      document.getElementById("picture").classList.toggle('circle', this.checked)
+    })
+
+    document.getElementById("save").addEventListener("click", function () {
+      modernScreenshot.domToPng(document.querySelector('#picture')).then(dataUrl => {
+        const link = document.createElement('a')
+        link.download = 'skills.png'
+        link.href = dataUrl
+        link.click()
+      })
+    })
+  </script>
+
+</body>
+
+</html>
